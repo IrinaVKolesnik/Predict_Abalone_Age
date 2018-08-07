@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script src="{{ url_for('static', filename='abalone.js') }}" type="text/javascript"></script>
+  <title>Abalone Age</title>
+  
+  <style> body{background-color: "#E6E6FA"} </style>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="jumbotron text-center">
+      <img src="{{url_for('static', filename='abaloneNature.jpg')}}" alt="Abalone" width="300" height="186">
+      <h2>Define Abalone Age</h2> 
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <h3 class="text-center"><strong>Model Parameters</strong></h3>
+    <div class="row">
+      <div class="alert alert-success col-md-6">
+        <h3 class="text-center">MSE: <span class="label label-info">{{mse}}</span></h3>
+      </div>
+      <div class="alert alert-success col-md-6">
+        <h3 class="text-center">R2: <span class="label label-info">{{r2}}</span></h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <form method="post" action="/calc">
+    <h3 class="text-center"><strong>Enter Criteria</strong></h3>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="sex">Sex:</label>
+            <select class="form-control" id="sex" name="sex">
+              <option {{sex_male}}>M</option>
+              <option {{sex_female}}>F</option>
+              <option {{sex_infant}}>I</option>
+            </select>
+            <span class="help-block">(M)ale, (F)emale, or (I)nfant</span>
+          </div>
+          <div class="form-group">
+            <label for="length">Length</label>
+            <input type="text" class="form-control" id="length" name="length" placeholder="mm" value="{{length}}">
+            <span class="help-block">Longest shell measurement</span>
+          </div>
+          <div class="form-group">
+            <label for="diameter">Diameter</label>
+            <input type="text" class="form-control" id="diameter" name="diameter" placeholder=" mm" value="{{diameter}}">
+            <span class="help-block">Perpendicular to length</span>
+          </div>
+          <div class="form-group">
+            <label for="height">Height</label>
+            <input type="text" class="form-control" id="height" name="height" placeholder="mm" value="{{height}}">
+            <span class="help-block">With meat in shell</span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="whole_weight">Whole weight</label>
+            <input type="text" class="form-control" id="whole_weight" name="whole_weight" placeholder="grams" value="{{whole_weight}}">
+            <span class="help-block">Whole abalone</span>
+          </div>
+          <div class="form-group">
+            <label for="shucked_weight">Shucked weight</label>
+            <input type="text" class="form-control" id="shucked_weight" name="shucked_weight" placeholder="grams" value="{{shucked_weight}}">
+            <span class="help-block">Weight of meat</span>
+          </div>
+          <div class="form-group">
+            <label for="viscera_weight">Viscera weight</label>
+            <input type="text" class="form-control" id="viscera_weight" name="viscera_weight" placeholder="grams" value="{{viscera_weight}}">
+            <span class="help-block">Gut weight (after bleeding)</span>
+          </div>
+          <div class="form-group">
+            <label for="shell_weight">Shell weight</label>
+            <input type="text" class="form-control" id="shell_weight" name="shell_weight" placeholder="grams" value="{{shell_weight}}">
+            <span class="help-block">After being dried</span>
+          </div>
+        </div>
+      </div>
+      <div class="text-center col-md-12">
+        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div> <!-- container-fluid for form-->
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="alert alert-success col-md-6">
+        <h3 class="text-center">Rings: <span id="rings" class="label label-danger">{{rings}}</span></h3>
+      </div>
+      <div class="alert alert-success col-md-6">
+        <h3 class="text-center">Age: <span id="age" class="label label-danger">{{age}}</span></h3>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
